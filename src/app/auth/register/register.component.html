@@ -5,15 +5,15 @@
         <div class="col-lg-4 mx-auto">
           <h2 class="text-center mb-4">Registro</h2>
           <div class="auto-form-wrapper">
-            <form action="#" [formGroup]="registerForm" (onSubmit)="register()">
+            <form [formGroup]="registerForm" (ngSubmit)="register()">
 
 
               <div class="form-group">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Nombre"  formControlName="nombre">
+                  <input type="text" class="form-control" placeholder="Nombre"  formControlName="name">
                   <div class="input-group-append">
                     <span class="input-group-text">
-                      <i *ngIf="registerForm.get('nombre').valid" class="fa fa-check-circle"></i>
+                      <i *ngIf="registerForm.controls['name'].valid" class="fa fa-check-circle"></i>
                     </span>
                   </div>
                 </div>
@@ -21,10 +21,10 @@
 
               <div class="form-group">
                 <div class="input-group">
-                  <input type="email" formControlName="correo" class="form-control" placeholder="Correo">
+                  <input type="email" formControlName="email" class="form-control" placeholder="Correo">
                   <div class="input-group-append">
                     <span class="input-group-text">
-                      <i *ngIf="registerForm.get('correo').valid" class="fa fa-check-circle"></i>
+                      <i *ngIf="registerForm.controls['email'].valid" class="fa fa-check-circle"></i>
                     </span>
                   </div>
                 </div>
@@ -36,7 +36,7 @@
                   <input type="password" class="form-control"  formControlName="password" placeholder="Password">
                   <div class="input-group-append">
                     <span class="input-group-text">
-                      <i *ngIf="registerForm.get('password').valid" class="fa fa-check-circle"></i>
+                      <i *ngIf="registerForm.controls['password'].valid" class="fa fa-check-circle"></i>
                     </span>
                   </div>
                 </div>
