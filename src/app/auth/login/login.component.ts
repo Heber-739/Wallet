@@ -1,6 +1,9 @@
 import { AuthService } from 'src/app/services/Auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { AppState } from 'src/app/shared/ngrx/app.reducer';
 
 @Component({
   selector: 'app-login',
@@ -10,9 +13,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   loginForm!:FormGroup;
+  private uiLoadingSub: Subscription;
+  isLoading!:boolean;
+  private uiStore:Store<AppState> = inject(Store<AppState>);
 
   constructor(private fb:FormBuilder,
-    private authService:AuthService) { }
+    private authService:AuthService) {
+      this.uiLoadingSub = this.uiStore.select('ui')
+    .subscribe(({isLoading})=>this.isLoading = isLoading)
+    }
 
   ngOnInit() {
     this.initForm()

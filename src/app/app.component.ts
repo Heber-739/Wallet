@@ -7,9 +7,11 @@ import { AuthService } from './services/Auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
+
   ngOnInit(): void {
     this.auth.initAuthListener()
   }
+
   title = 'app';
   private auth = inject(AuthService)
 

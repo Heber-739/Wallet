@@ -13,7 +13,7 @@
                     <input type="email" class="form-control" formControlName="email" placeholder="Email">
                     <div class="input-group-append">
                       <span class="input-group-text">
-                        <i class="fa fa-check-circle"></i>
+                        <i *ngIf="loginForm.controls['password'].valid" class="fa fa-check-circle"></i>
                       </span>
                     </div>
                   </div>
@@ -26,7 +26,7 @@
                     <input type="password" class="form-control" formControlName="password" placeholder="*********">
                     <div class="input-group-append">
                       <span class="input-group-text">
-                        <i class="fa fa-check-circle"></i>
+                        <i *ngIf="loginForm.controls['password'].valid" class="fa fa-check-circle"></i>
                       </span>
                     </div>
                   </div>
@@ -36,10 +36,11 @@
                 <div class="form-group">
                   <button
                   type="submit"
-                  [disabled]="loginForm.invalid"
-                  class="btn btn-primary submit-btn btn-block">Login</button>
+                  [disabled]="loginForm.invalid || isLoading"
+                  class="btn btn-primary submit-btn btn-block">
+                   <i *ngIf="isLoading" class="fa fa-spin fa-sync" ></i>
+                   Login</button>
                 </div>
-
 
                 <div class="text-block text-center my-3">
                   <span class="text-small font-weight-semibold">No estas registrado? </span>

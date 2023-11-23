@@ -1,22 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { RegisterUser } from 'src/app/interface/registerUser.interface';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { User } from 'src/app/interface/user.interface';
 import { AuthService } from 'src/app/services/Auth.service';
+import { AppState } from 'src/app/shared/ngrx/app.reducer';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styles: []
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
 
   registerForm!:FormGroup;
 
+   private uiLoadingSub: Subscription;
+  isLoading!:boolean;
+  private uiStore:Store<AppState> = inject(Store<AppState>);
+
 
   constructor(private fb:FormBuilder,
-    private authService:AuthService,
-    private router:Router) { }
+    private authService:AuthService) {
+       this.uiLoadingSub = this.uiStore.select('ui')
+    .subscribe(({isLoading})=>this.isLoading = isLoading)
+    }
+  ngOnDestroy(): void {
+    this.uiLoadingSub.unsubscribe()
+  }
 
   ngOnInit() {
     this.initForm()
@@ -32,12 +43,9 @@ export class RegisterComponent implements OnInit {
 
 
   register(){
-    if(this.registerForm.invalid){
-      this.registerForm.markAllAsTouched()
-      console.log('error')
-    } else {
-      console.log('paso')
-      const newUser:RegisterUser = this.registerForm.value;
+    if(this.registerForm.invalid) return;
+    else {
+      const newUser:User = this.registerForm.value;
       this.authService.createUser(newUser)
     }
   }
