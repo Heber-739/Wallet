@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 // Modulos
 import { AppRoutingModule } from './app-routing.module';
+import { NgChartsModule } from 'ng2-charts';
 
 
 import { AppComponent } from './app.component';
@@ -23,6 +24,7 @@ import { environment } from 'src/environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { appReducers } from './shared/ngrx/app.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { OrderWalletPipe } from './pipes/orderWallet.pipe';
 
 
 
@@ -37,12 +39,14 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     DetalleComponent,
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    OrderWalletPipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    NgChartsModule,
     provideFirebaseApp(() => initializeApp(environment.fireConfig)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),

@@ -10,6 +10,7 @@ import { Store } from '@ngrx/store';
 
 import * as ui from './../shared/ngrx/ui/ui.actions';
 import { setUser,unSetUser } from '../shared/ngrx/auth/auth.action';
+import { unSetItems } from '../shared/ngrx/wallet/wallet.actions';
 
 
 @Injectable({providedIn: 'root'})
@@ -21,15 +22,19 @@ export class AuthService {
   private uiStore:Store<AppState> = inject(Store<AppState>);
   private userSubscription!:Unsubscribe;
   private token: string | null = null;
+  private _userUid:string = '';
 
   initAuthListener(){
     authState(this.auth).subscribe(res => {
       if(!res) {
+        this._userUid = '';
         this.token = null
         this.uiStore.dispatch(unSetUser())
-        this.userSubscription()
+        this.uiStore.dispatch(unSetItems())
+        if(this.userSubscription) this.userSubscription()
         this.router.navigate(['/login'])
       } else {
+        this._userUid = res.uid;
         res.getIdToken().then((res)=>{
           this.token = res;
           this.router.navigate(['/'])
@@ -44,10 +49,12 @@ export class AuthService {
   }
 
   isAuth(){
-    console.log({'Boolean(this.token)':Boolean(this.token)});
     return Boolean(this.token);
   }
 
+  get userUid(){
+    return this._userUid
+  }
 
   createUser(newUser:User){
     const {email,password} = newUser;
