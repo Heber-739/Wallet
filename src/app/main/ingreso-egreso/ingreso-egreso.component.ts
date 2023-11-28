@@ -1,15 +1,14 @@
-import { isLoading } from './../shared/ngrx/ui/ui.actions';
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { v4 as uidv4 } from 'uuid';
 
 
-import { WalletType } from '../interface/wallet.interface';
-import { WalletService } from '../services/wallet.service';
 import { Store } from '@ngrx/store';
-import { AppState } from '../shared/ngrx/app.reducer';
 import { Subscription } from 'rxjs';
+import { WalletType } from 'src/app/interface/wallet.interface';
+import { WalletService } from 'src/app/services/wallet.service';
+import { AppState } from 'src/app/shared/ngrx/app.reducer';
 
 @Component({
   selector: 'app-ingreso-egreso',

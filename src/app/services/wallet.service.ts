@@ -41,7 +41,6 @@ export class WalletService {
 
     this.walletSubscription = onSnapshot(colRef,(snapshot)=>{
       const snap = snapshot.docs.map((a)=> a.data() as Wallet)
-      console.log(snap);
       this.uiStore.dispatch(setItems({items:snap}))
     })
   }

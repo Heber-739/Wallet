@@ -7,7 +7,7 @@ import * as wallet from './../ngrx/wallet/wallet.reducer';
 export interface AppState {
    ui: ui.State,
    auth: auth.State,
-   wallet:wallet.State
+  //  wallet:wallet.State
 }
 
 
@@ -15,5 +15,5 @@ export interface AppState {
 export const appReducers: ActionReducerMap<AppState> = {
    ui: ui.loadingReducer,
    auth: auth.authReducer,
-   wallet:wallet.walletReducer
+  //  wallet:wallet.walletReducer
 }

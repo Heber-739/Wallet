@@ -1,9 +1,8 @@
-import { WalletType } from './../../interface/wallet.interface';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ChartData } from 'chart.js';
-import { Wallet } from 'src/app/interface/wallet.interface';
-import { AppState } from 'src/app/shared/ngrx/app.reducer';
+import { Wallet, WalletType } from 'src/app/interface/wallet.interface';
+import { AppWalletState } from 'src/app/shared/ngrx/wallet/wallet.reducer';
 
 @Component({
   selector: 'app-estadistica',
@@ -20,7 +19,7 @@ export class EstadisticaComponent implements OnInit {
   doughnutChartData: ChartData<'doughnut'> | null = null;
 
 
-  constructor(private store:Store<AppState>) { }
+  constructor(private store:Store<AppWalletState>) { }
 
   ngOnInit() {
     this.getData()
@@ -30,13 +29,13 @@ export class EstadisticaComponent implements OnInit {
     this.store.select('wallet').subscribe(({items})=>
     this.generate(items))
   }
+
   generate(items:Wallet[]){
 
     this.income=0
   this.egress=0
   this.totalIncome=0
   this.totalEgress=0
-
 
     items.forEach((item)=>{
       if(item.type===WalletType.INCOME){

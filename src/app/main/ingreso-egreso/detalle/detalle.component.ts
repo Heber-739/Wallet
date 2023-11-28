@@ -1,9 +1,9 @@
-import { WalletService } from './../../services/wallet.service';
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Wallet } from 'src/app/interface/wallet.interface';
-import { AppState } from 'src/app/shared/ngrx/app.reducer';
+import { WalletService } from 'src/app/services/wallet.service';
+import { AppWalletState } from 'src/app/shared/ngrx/wallet/wallet.reducer';
 
 @Component({
   selector: 'app-detalle',
@@ -13,7 +13,7 @@ import { AppState } from 'src/app/shared/ngrx/app.reducer';
 export class DetalleComponent implements OnInit, OnDestroy {
 
   walletItems:Wallet[] = [];
-  private store:Store<AppState> = inject(Store<AppState>);
+  private store:Store<AppWalletState> = inject(Store<AppWalletState>);
   private walletService:WalletService = inject(WalletService);
   private storeSubs!: Subscription;
   order:string = 'asc';

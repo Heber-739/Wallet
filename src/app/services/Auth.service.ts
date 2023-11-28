@@ -37,7 +37,7 @@ export class AuthService {
         this._userUid = res.uid;
         res.getIdToken().then((res)=>{
           this.token = res;
-          this.router.navigate(['/'])
+          this.router.navigate(['/dashboard'])
           })
         let userDoc = doc(this.fire,`user/${res.uid}`)
 
